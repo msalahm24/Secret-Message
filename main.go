@@ -2,21 +2,22 @@ package main
 
 import (
 	"log"
-
 	"github.com/mahmoud24598salah/Secret-Message/api"
+	"github.com/mahmoud24598salah/Secret-Message/util"
 	"github.com/sfreiberg/gotwilio"
 )
 
-const (
-	SERVER_ADDRESS   = "0.0.0.0:8080"
-	TwilioAccountSid = "ACc19ea94a2e3de488564c1a3e20b76ad3"
-	TwilioAuthToken  = ""
-)
-
 func main() {
-	twilio := gotwilio.NewTwilioClient(TwilioAccountSid, TwilioAuthToken)
+	config,err := util.LoadConfig(".")
+
+	if err != nil{
+		log.Fatal("Can nor read the config file",err)
+	}
+
+	sid := config.TWILIO_ACCOUNT_SID
+	twilio := gotwilio.NewTwilioClient(sid, config.TWILIO_AUTH_TOKEN)
 	server := api.NewServer(twilio)
-	err := server.Start(SERVER_ADDRESS)
+	err = server.Start(config.SreverAddress)
 
 	if err != nil {
 		log.Fatal("Can not start server", err)
