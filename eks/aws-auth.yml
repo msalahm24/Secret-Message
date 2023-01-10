@@ -6,6 +6,6 @@ metadata:
 data:
   mapUsers: |
     - userarn: arn:aws:iam::849789332626:user/github-ci
-      username: testuser
+      username: github-ci
       groups:
         - system:masters

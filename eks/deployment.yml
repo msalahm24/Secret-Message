@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: secret-message-api-deployment
+  labels:
+    app: secret-message-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: secret-message-api
+  template:
+    metadata:
+      labels:
+        app: secret-message-api
+    spec:
+      containers:
+      - name: secret-message-api
+        image: 849789332626.dkr.ecr.eu-west-2.amazonaws.com/secretmessage:5e27b07b4155781045988a3ff999ac0b90f01bad
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
