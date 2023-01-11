@@ -16,10 +16,7 @@ type sendMessageReq struct {
 
 func (server *Server) sendMessage(ctx *gin.Context) {
 	var req sendMessageReq
-	server.router.Use(cors.New(cors.Config{
-		AllowAllOrigins: true,
-		AllowMethods:    []string{"POST"},
-	}))
+	server.router.Use(cors.Default())
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
