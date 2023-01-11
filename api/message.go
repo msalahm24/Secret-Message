@@ -20,7 +20,6 @@ func (server *Server) sendMessage(ctx *gin.Context) {
 	server.router.Use(cors.New(cors.Config{
 		AllowAllOrigins: true,
 		AllowMethods:    []string{"POST"},
-		AllowHeaders:     []string{"Origin"},
 	}))
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
