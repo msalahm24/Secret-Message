@@ -1,9 +1,11 @@
 package api
 
 import (
+	"net/http"
+
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/mahmoud24598salah/Secret-Message/services"
-	"net/http"
 )
 
 type sendMessageReq struct {
@@ -12,10 +14,13 @@ type sendMessageReq struct {
 	Type          string `json:"type" binding:"required"`
 }
 
-
-
 func (server *Server) sendMessage(ctx *gin.Context) {
 	var req sendMessageReq
+	//ctx.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+	server.router.Use(cors.New(cors.Config{
+		AllowAllOrigins: true,
+		AllowMethods:    []string{"POST"},
+	}))
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
@@ -33,5 +38,3 @@ func (server *Server) sendMessage(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, resp)
 }
-
-
