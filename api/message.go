@@ -16,10 +16,11 @@ type sendMessageReq struct {
 
 func (server *Server) sendMessage(ctx *gin.Context) {
 	var req sendMessageReq
-	//ctx.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+	ctx.Writer.Header().Set("Access-Control-Allow-Origin", "*")
 	server.router.Use(cors.New(cors.Config{
 		AllowAllOrigins: true,
 		AllowMethods:    []string{"POST"},
+		AllowHeaders:     []string{"Origin"},
 	}))
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
