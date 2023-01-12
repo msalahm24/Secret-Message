@@ -2,7 +2,6 @@ package api
 
 import (
 	"net/http"
-
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/mahmoud24598salah/Secret-Message/services"
@@ -16,8 +15,14 @@ type sendMessageReq struct {
 
 func (server *Server) sendMessage(ctx *gin.Context) {
 	var req sendMessageReq
-	server.router.Use(cors.Default())
 	err := ctx.ShouldBindJSON(&req)
+	server.router.Use(cors.New(cors.Config{
+		AllowAllOrigins: true,
+        AllowMethods:     []string{"POST", "OPTIONS"},
+        AllowHeaders:     []string{"Origin"},
+        ExposeHeaders:    []string{"Content-Length"},
+        AllowCredentials: true,
+    }))
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 		return
@@ -33,4 +38,10 @@ func (server *Server) sendMessage(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(http.StatusOK, resp)
+}
+
+func (server *Server) optionMessage(ctx *gin.Context) {
+	ctx.Header("Access-Control-Allow-Origin", "*")
+	ctx.Header("Access-Control-Allow-Methods", "GET, OPTIONS, POST, PUT")
+	ctx.Header("Access-Control-Allow-Headers", "authorization")
 }

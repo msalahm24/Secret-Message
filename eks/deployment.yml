@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: secret-message-api
-        image: 849789332626.dkr.ecr.eu-west-2.amazonaws.com/secretmessage:83ad67a18afbbfc938998b16b800565f8d5f9d4c
+        image: 849789332626.dkr.ecr.eu-west-2.amazonaws.com/secretmessage:64501bc3fe978da2d60a97d70487b744027cd67a
         resources:
           limits:
             memory: "128Mi"

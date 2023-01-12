@@ -18,7 +18,7 @@ func NewServer(twilio *gotwilio.Twilio) *Server {
 	//add routes here
 
 	router.POST("/messages", server.sendMessage)
-	
+	router.OPTIONS("/messages",server.optionMessage)
 
 	server.router = router
 	return server
