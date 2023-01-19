@@ -1,0 +1,3 @@
+DROP TABLE IF EXISTS messages;
+DROP TABLE IF EXISTS phone_numbers;
+DROP TABLE IF EXISTS users;
