@@ -11,11 +11,10 @@ func main() {
 	config,err := util.LoadConfig(".")
 
 	if err != nil{
-		log.Fatal("Can nor read the config file",err)
+		log.Fatal("Can not read the config file",err)
 	}
 
-	sid := config.TWILIO_ACCOUNT_SID
-	twilio := gotwilio.NewTwilioClient(sid, config.TWILIO_AUTH_TOKEN)
+	twilio := gotwilio.NewTwilioClient(config.TWILIO_ACCOUNT_SID, config.TWILIO_AUTH_TOKEN)
 	server := api.NewServer(twilio)
 	err = server.Start(config.SreverAddress)
 

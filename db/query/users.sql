@@ -10,3 +10,10 @@ INSERT INTO users (
     $3,
     $4
 ) RETURNING *;
+
+-- name: GetUser :one
+SELECT * FROM users
+WHERE user_name = $1;
+
+-- name: CountUsers :one
+SELECT count(*) FROM users;

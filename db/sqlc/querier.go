@@ -9,7 +9,16 @@ import (
 )
 
 type Querier interface {
+	CountMessages(ctx context.Context) (int64, error)
+	CountUsers(ctx context.Context) (int64, error)
+	CreateMessage(ctx context.Context, arg CreateMessageParams) (Message, error)
+	CreatePhoneNumber(ctx context.Context, arg CreatePhoneNumberParams) (PhoneNumber, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
+	GetMessageByToPhoneNumber(ctx context.Context, toPhoneNumber string) ([]Message, error)
+	GetMessageByUser(ctx context.Context, userID string) ([]Message, error)
+	GetPhoneNumbersByUser(ctx context.Context, userID string) ([]PhoneNumber, error)
+	GetUser(ctx context.Context, userName string) (User, error)
+	GetUserByphoneNumber(ctx context.Context, phoneNumber string) (PhoneNumber, error)
 }
 
 var _ Querier = (*Queries)(nil)
